@@ -20,7 +20,5 @@ defmodule MyApp.SMSGateway do
     adapter().send_sms(phone_number, message)
   end
 
-  defp adapter do
-    Application.get_env(:my_app, :sms_adapter, MyApp.SMSGateway.DefaultAdapter)
-  end
+  defp adapter, do: MyApp.Config.sms_gateway()
 end
