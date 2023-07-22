@@ -3,8 +3,14 @@ defmodule MyApp.Config do
   API for accessing the app's configuration
   """
 
-  @spec sms_gateway :: module
+  @behaviour MyApp.Config.Adapter
+
+  @impl true
   def sms_gateway do
-    Application.get_env(:my_app, :sms_adapter, MyApp.SMSGateway.DefaultAdapter)
+    adapter.sms_gateway()
+  end
+
+  defp adapter do
+    Application.get_env(:my_app, :config_adapter, MyApp.Config.DefaultAdapter)
   end
 end
